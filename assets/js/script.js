@@ -28,12 +28,19 @@ function getClient() {
                         "<td>" + client.password + "</td>" +
                         "<td>" + client.name + "</td>" +
                         "<td>" + client.age + "</td>" +
-                        "</tr>"
+                        "<td><button class='btn btn-danger'onclick=\"eliminar(\'" +
+                        client.idClient +
+                        "\')\">Eliminar</button></td>"
+                    "</tr>"
                 })
                 console.log(registro)
                 $("#tbody").html(registro)
             }
         }
     })
+}
 
+function eliminar(idClient) {
+    if (confirm("Desea Eliminar el Registro con id client " + idClient + "?"))
+        console.log(idClient)
 }

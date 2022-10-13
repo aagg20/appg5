@@ -4,7 +4,6 @@ $(document).ready(function() {
     $("#guardar").click(function() {
         guardarClient()
     })
-
 })
 
 function guardarClient() {
