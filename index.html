@@ -20,7 +20,6 @@
 <body>
     <script src="assets/js/script.js"></script>
     <div class="container mt-5">
-        <button onclick="eliminar('4')">Eliminar</button>
         <a class="btn btn-success mb-3" href="guardar.html">Guardar Cliente</a>
         <div id="mensaje" class="alert alert-warning">
             <strong>mensaje</strong> No se encontro registros!!
@@ -40,6 +39,37 @@
                 <tbody id="tbody">
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-------------------------------------modal----------------------------------------->
+
+    <div class="modal" id="modalactualizar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Actualizar Registro</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="idclient">Id CLient</label>
+                    <input type="text" id="idclient" class="form-control" placeholder="Digite Id Cliente" readonly>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Digite Correo">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Digite Password">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Digite Name">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" class="form-control" placeholder="Digite Age">
+                    <div class="text-center mt-3">
+                        <button id="actualizar" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar Popup</button>
+                </div>
+            </div>
         </div>
     </div>
 
