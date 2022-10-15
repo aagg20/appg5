@@ -2,7 +2,9 @@ const endpoint = "localhost:8080/api/Client"  //"http://132.145.209.209:8080/api
 
 $(document).ready(function () {
     getClient()
-    $("#actualizar").click(function())
+    $("#actualizar").click(function() {
+        actualizar()
+    })
 })
 
 function getClient() {
@@ -26,17 +28,17 @@ function getClient() {
                     registro += "<tr>" +
                         "<td>" + client.idClient + "</td>" +
                         "<td>" + client.email + "</td>" +
-                        "<td>" + client.password + "</td>" +
+                        "<td>****************</td>" +
                         "<td>" + client.name + "</td>" +
                         "<td>" + client.age + "</td>" +
-                        "<td><button class='btn btn-warning'" +
-                        "onclick=\"enviar('" + client.idClient + "','" + 
-                        client.email  + "','" + client.password  + "','" + 
-                        client.name  + "','" + client.age + "')\"" +
-                        ">Editar</button> &nbsp" +
-                        "<td><button class='btn btn-danger' onclick=\"eliminar(\'" +
+                        "<td><button data-bs-toggle='modal'data-bs-target='#modalactualizar' class='btn btn-warning'" +
+                        "onclick=\"enviar('" + client.idClient + "','" +
+                        client.email + "','" + client.password +
+                        "','" + client.name + "','" + client.age + "')\"" +
+                        ">Editar</button>&nbsp" +
+                        "<button class='btn btn-danger'onclick=\"eliminar(\'" +
                         client.idClient +
-                        "\')\" >Eliminar</button></td>"
+                        "\')\">Eliminar</button></td>"
                     "</tr>"
                 })
                 console.log(registro)
@@ -44,52 +46,66 @@ function getClient() {
             }
         }
     })
-
 }
 
 function enviar(idClient, email, password, name, age) {
-    console.log(idClient)
-    console.log(password)
-    console.log(email)
 
     $("#idclient").val(idClient)
     $("#email").val(email)
     $("#password").val(password)
-    
-    if (confirm("Desea actualizar el registro con el " +idClient + "?")) {
+    $("#name").val(name)
+    $("#age").val(age)
+
+}
+
+function actualizar() {
+
+
+    if (confirm("Desea Actualizar el Registro con id cliente ?")) {
+
         let cliente = {
             idClient: $("#idclient").val(),
             email: $("#email").val(),
             password: $("#password").val(),
-
-            let dataJson = JSON.stringify(cliente)
-
-           
-    $.ajax({
-        url: endpoint + "/update",
-        type: 'PUT',
-        data: dataJson
-        dataType: "JSON",
-        contentType: "application/json",
-        complete: function () {
-            getClient();
+            name: $("#name").val(),
+            age: $("#age").val()
         }
-    })
-        }
+        let dataJson = JSON.stringify(cliente)
+
+        $.ajax({
+            url: endpoint + "/update",
+            type: 'PUT',
+            data: dataJson,
+            dataType: 'json',
+            contentType: 'application/json',
+            complete: function(data) {
+                if (data.status = '201') {
+                    alert("Actualizó Registro con Exito!!")
+                } else {
+                    alert("Problemas en Actualizar consulte al Administrador")
+                }
+                getClient()
+            }
+        })
+
+
     }
+
+
 }
 
 function eliminar(idClient) {
-    if (confirm("Desea eliminar el cliente" + idClient + "?"))
-        console.log(idClient)
+    if (confirm("Desea Eliminar el Registro con id client " + idClient + "?")) {
 
-    $.ajax({
-        url: endpoint + "/" + idClient,
-        type: 'DELETE',
-        dataType: "JSON",
-        contentType: "application/json",
-        complete: function () {
-            getClient();
-        }
-    })
+        $.ajax({
+            url: endpoint + "/" + idClient,
+            type: 'DELETE',
+            dataType: 'json',
+            contentType: 'application/json',
+            complete: function() {
+                getClient()
+            }
+        })
+
+    }
 }
